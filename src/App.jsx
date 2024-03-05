@@ -1,17 +1,16 @@
 import './App.css';
 import { useRef } from 'react';
 import { useState, useEffect } from 'react';
-import { FaTrash } from "react-icons/fa";
 
 
 function App() {
-  let task = useRef()
-  let [active, setActive] = useState([])
-  let [completed, setCompleted] = useState([])
-  let [status, setStatus] = useState('all')
-  let allBar = useRef()
-  let activeBar = useRef()
-  let completedBar = useRef()
+  const task = useRef()
+  const [active, setActive] = useState([])
+  const [completed, setCompleted] = useState([])
+  const [status, setStatus] = useState('all')
+  const allBar = useRef()
+  const activeBar = useRef()
+  const completedBar = useRef()
 
   function createTask() {
     active.unshift(task.current.value)
@@ -27,7 +26,7 @@ function App() {
 
   function removeTask(e) {
     if (e.target.checked) {
-      let filter = active.filter(task => task !== e.target.parentElement.textContent)
+      const filter = active.filter(task => task !== e.target.parentElement.textContent)
       completed.unshift(e.target.parentElement.textContent)
       localStorage.setItem('active', JSON.stringify(filter))
       localStorage.setItem('completed', JSON.stringify(completed))
@@ -35,7 +34,7 @@ function App() {
         getData()
       }, 100)
     } else {
-      let filter = completed.filter(task => task !== e.target.parentElement.textContent)
+      const filter = completed.filter(task => task !== e.target.parentElement.textContent)
       active.unshift(e.target.parentElement.textContent)
       localStorage.setItem('completed', JSON.stringify(filter))
       localStorage.setItem('active', JSON.stringify(active))
@@ -67,8 +66,8 @@ function App() {
   }
 
   function remove1Task(e) {
-    let filter1 = active.filter(task => task !== e.target.id)
-    let filter2 = completed.filter(task => task !== e.target.id)
+    const filter1 = active.filter(task => task !== e.target.id)
+    const filter2 = completed.filter(task => task !== e.target.id)
     localStorage.setItem('active', JSON.stringify(filter1))
     localStorage.setItem('completed', JSON.stringify(filter2))
     getData()
@@ -125,7 +124,7 @@ function App() {
           status === 'all' && <>
             {
               active.length ? active.map((task, i) => {
-                let card = <div key={FaTrash} className='oneTask'>
+                const card = <div key={i} className='oneTask'>
                   <label><input type='checkbox' onChange={removeTask} name='task' checked={false} />{task}</label>
                   <i className="fa-solid fa-trash" id={task} onClick={remove1Task}></i>
                 </div>
@@ -134,7 +133,7 @@ function App() {
             }
             {
               completed.length ? completed.map((task, i) => {
-                let card = <div key={i} className='oneTask'>
+                const card = <div key={i} className='oneTask'>
                   <label className='completed'><input type='checkbox' onChange={removeTask} name='task' checked={true} />{task}</label>
                   <i className="fa-solid fa-trash" id={task} onClick={remove1Task}></i>
                 </div>
@@ -145,7 +144,7 @@ function App() {
         }
         {
           status === 'active' && active.length ? active.map((task, i) => {
-            let card = <div key={i} className='oneTask'>
+            const card = <div key={i} className='oneTask'>
               <label><input type='checkbox' onChange={removeTask} name='task' checked={false} />{task}</label>
               <i className="fa-solid fa-trash" id={task} onClick={remove1Task}></i>
             </div>
